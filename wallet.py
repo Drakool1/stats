@@ -14,7 +14,6 @@ def stats(ca):
 
     # Fetch the data
     response = scraper.get(url1)
-    response2 = scraper.get(url2)
     sol = float(requests.get('https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd').json()['solana']['usd'])
 
     if response.status_code == 200:
@@ -29,7 +28,8 @@ def stats(ca):
         realized_profit_30d = f"{data.get('data', {}).get('realized_profit_30d', 0)/sol:.2f}"
         loss = data.get('data', {}).get('pnl_lt_minus_dot5_num', 0)
         gain = int(data.get('data', {}).get('pnl_2x_5x_num', 0))+int(data.get('data', {}).get('pnl_gt_5x_num', 0))
-
+        
+        response2 = scraper.get(url2)
         if response2.status_code == 200:
             trades = response2.json().get('data', {}).get('holdings', [])
             
