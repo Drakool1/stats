@@ -31,4 +31,11 @@ async def on_message(message):
     
     await bot.process_commands(message)
 
+@bot.command()
+async def stat(ctx, address: str):
+    """Returns stats for a public key."""
+    # careful as the name of the helper function might be the same as the command name
+    output = stats(address)
+    await ctx.send(f"```{output}```")
+
 bot.run(TOKEN)
